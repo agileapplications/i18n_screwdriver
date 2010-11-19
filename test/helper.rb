@@ -9,10 +9,14 @@ rescue Bundler::BundlerError => e
 end
 require 'test/unit'
 require 'shoulda'
+require 'action_controller'
+require 'action_view'
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'i18n_screwdriver'
 
 class Test::Unit::TestCase
+  include I18n::Screwdriver
+  include ActionView::Helpers
 end
