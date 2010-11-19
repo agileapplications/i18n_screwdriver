@@ -1,6 +1,41 @@
 = i18n_screwdriver
 
-Description goes here.
+Translating applications is often a pain in the ass. The problem with rails i18n
+is that you have to use keys for every string to translate.
+
+That is one too many abstraction layers - I love the gettext syntax but I want to
+stick to the rails standard libraries. Therefor I created this small toolbox. 
+
+== Usage
+
+Set these constants to make i18n screwdriver aware of the languages you are using
+
+  APPLICATION_LANGUAGES = ['de', 'en, 'fr', 'it']
+  DEFAULT_LANGUAGE = 'de'
+
+In your views, helpers and controllers use the convenient underscore helper method for all your translations 
+
+  _("your translation")
+
+When you are done you have 2 helper rake tasks. The first one scans all your views, controllers and
+helpers for translation. It removes unused translation strings and creates an application.<lang>.yml file
+for each of your APPLICATION_LANGUAGES.
+
+  rake i18n:update
+
+The seconds one lets you translate your application.<lang>.yml file line by line. Of course
+you can edit the application.<lang>.yml file itself - but dont do that for your default language file.
+It gets recreated everytime you run the tasks - edit those translations in your views e.g. itself.
+
+  TRANSLATE=en rake i18n:translate
+
+
+== Next steps
+
+* DRY the code
+* test more
+* use ruby_parser instead of regex
+* support interpolation
 
 == Contributing to i18n_screwdriver
  
@@ -14,6 +49,4 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2010 Rajkumar. See LICENSE.txt for
-further details.
-
+Copyright (c) 2010 Tobias Miesel. Released unter the MIT license.
