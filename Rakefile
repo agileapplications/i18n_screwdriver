@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'rake'
+require 'i18n_screwdriver/tasks'
 
 begin
   require 'jeweler'
