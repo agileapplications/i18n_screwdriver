@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "i18n_screwdriver.gemspec",
     "lib/i18n_screwdriver.rb",
     "tasks/i18n.rake",
     "test/helper.rb",
