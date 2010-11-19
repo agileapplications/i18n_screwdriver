@@ -13,10 +13,3 @@ module I18n
     end
   end
 end
-
-ActionController::Base.send :include, I18n::Screwdriver
-ActionView::Helpers::TranslationHelper.send :include, I18n::Screwdriver
-# make helper available in tests
-ActionController::TestCase.send :include, I18n::Screwdriver
-ActiveSupport::TestCase.send :include, I18n::Screwdriver
-ActionController::IntegrationTest.send :include, I18n::Screwdriver
