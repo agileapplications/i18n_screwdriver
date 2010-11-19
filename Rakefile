@@ -1,26 +1,22 @@
 require 'rubygems'
-require 'bundler'
-begin
-  Bundler.setup(:default, :development)
-rescue Bundler::BundlerError => e
-  $stderr.puts e.message
-  $stderr.puts "Run `bundle install` to install missing gems"
-  exit e.status_code
-end
 require 'rake'
 
-require 'jeweler'
-Jeweler::Tasks.new do |gem|
-  gem.name = "i18n_screwdriver"
-  gem.homepage = "http://github.com/agileapplications/i18n_screwdriver"
-  gem.license = "MIT"
-  gem.summary = %Q{make translating with rails i18n fun again}
-  gem.email = "agileapplications@gmail.com"
-  gem.authors = ["Tobias Miesel"]
-  gem.add_development_dependency "shoulda", ">= 0"
-  gem.add_dependency "actionpack", ">= 3.0.0"
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gem|
+    gem.name = "i18n_screwdriver"
+    gem.homepage = "http://github.com/agileapplications/i18n_screwdriver"
+    gem.license = "MIT"
+    gem.summary = %Q{make translating with rails i18n fun again}
+    gem.email = "agileapplications@gmail.com"
+    gem.authors = ["Tobias Miesel"]
+    gem.add_development_dependency "shoulda", ">= 0"
+    gem.add_dependency "actionpack", ">= 3.0.0"
+  end
+  Jeweler::GemcutterTasks.new
+rescue LoadError
+  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
-Jeweler::RubygemsDotOrgTasks.new
 
 require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
@@ -36,6 +32,7 @@ Rcov::RcovTask.new do |test|
   test.verbose = true
 end
 
+task :test => :check_dependencies
 task :default => :test
 
 require 'rake/rdoctask'
