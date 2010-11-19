@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{i18n_screwdriver}
-  s.version = "0.1.1"
+  s.version = "0.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tobias Miesel"]
@@ -22,9 +22,9 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "i18n_screwdriver.gemspec",
-    "init.rb",
     "lib/i18n_screwdriver.rb",
-    "tasks/i18n.rake",
+    "lib/tasks/i18n.rake",
+    "rails/init.rb",
     "test/helper.rb",
     "test/test_i18n_screwdriver.rb"
   ]
