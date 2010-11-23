@@ -2,7 +2,6 @@
 
 Translating applications is often a pain in the ass. The problem with rails i18n
 is that you have to use keys for every string to translate.
-
 That is one too many abstraction layers - I love the gettext syntax but I want to
 stick to the rails standard libraries. Therefor I created this small toolbox. 
 
