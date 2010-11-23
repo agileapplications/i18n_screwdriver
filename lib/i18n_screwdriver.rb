@@ -17,4 +17,4 @@ end
 ActionView::Base.send :include, I18n::Screwdriver
 ActionController::Base.send :include, I18n::Screwdriver
 ActionController::IntegrationTest.send :include, I18n::Screwdriver
-ActiveSupport::TestCase.send :include, I18n::Screwdriver
+ActionController::TestCase.send :include, I18n::Screwdriver
