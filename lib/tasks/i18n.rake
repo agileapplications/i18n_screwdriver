@@ -37,7 +37,7 @@ namespace :i18n do
       
       # add new keys with empty translation to hash
       translations.each_key do |key|
-        existing_translations[key] = "TRANSLATION_MISSING: #{key}" unless existing_translations.has_key?(key)
+        existing_translations[key] = "TRANSLATION_MISSING" unless existing_translations.has_key?(key)
       end
       write_translation_file(language, existing_translations)
     end
@@ -51,7 +51,7 @@ namespace :i18n do
       existing_translations = existing_translations[language]
       puts "Translating #{existing_translations.keys.size} entries to <#{language}> (enter :q to save and quit):"
       existing_translations.keys.sort.each do |key|
-        if existing_translations[key] == "TRANSLATION_MISSING"
+        if ["TRANSLATION_MISSING", ""].include?(existing_translations[key])
           puts "> #{key}"
           input = STDIN.gets.chomp
           if input == ":q"

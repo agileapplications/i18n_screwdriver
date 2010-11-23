@@ -8,7 +8,11 @@ stick to the rails standard libraries. Therefor I created this small toolbox.
 
 == Installation
 
-First run the generator that copies the translation rake task to your application task dir.
+Just include the screwdriver gem in your Bundler Gemfile
+
+  gem 'i18n_screwdriver'
+
+Then run the generator that copies the translation rake task to your application task dir.
 
   rails g screwdriver
 
@@ -35,13 +39,14 @@ It gets recreated everytime you run the tasks - edit those translations in your 
 
   TRANSLATE=en rake i18n:translate
 
-
 == Next steps
 
+* fix drawback that multiple translations on the same name are currently not recognized, happens very well with options for select tags
+* also recognize model validation error messages
 * DRY the code
 * test more
 * use ruby_parser instead of regex
-* support interpolation
+* support interpolation like "my name is #{user.full_name} and I am living in #{user.location}"
 
 == Contributing to i18n_screwdriver
  
