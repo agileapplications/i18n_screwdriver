@@ -88,12 +88,11 @@ namespace :i18n do
   def scan_for_translations(file, translations)
     File.open(file) do |io|
       io.each do |line| 
-        if line =~ /_\("([^"]+)"\)/
-          value = $1
-          translations[$1.gsub(/\./, '').strip] = value.strip
-        elsif line =~ /_\('([^']+)'\)/
-          value = $1
-          translations[$1.gsub(/\./, '').strip] = value.strip
+        line.scan(/_\("([^"]+)"\)/) do |match|
+          translations[match.gsub(/\./, '').strip] = match.strip
+        end
+        line.scan(/_\('([^']+)'\)/) do |match|
+          translations[match.gsub(/\./, '').strip] = match.strip
         end
       end
     end
