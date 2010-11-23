@@ -33,7 +33,7 @@ for each of your APPLICATION_LANGUAGES.
 
   rake i18n:update
 
-The seconds one lets you translate your application.<lang>.yml file line by line. Of course
+The second one lets you translate your application.<lang>.yml file line by line. Of course
 you can edit the application.<lang>.yml file itself - but dont do that for your default language file.
 It gets recreated everytime you run the tasks - edit those translations in your views e.g. itself.
 
