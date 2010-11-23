@@ -3,8 +3,8 @@ namespace :i18n do
   task :update => :environment do
     
     translations = {}
-    raise "ERROR: APPLICATION_LANGUAGES = ['de', 'en', ...] is not defined - define it in your initializers" unless defined? APPLICATION_LANGUAGES
-    raise "ERROR: DEFAULT_LANGUAGE = '??' is not defined - define it in your initializers" unless defined? DEFAULT_LANGUAGE
+    raise "ERROR: APPLICATION_LANGUAGES = [['Deutsch', 'de'], ['English', 'en'], ...] is not defined - define it in your initializers" unless defined? APPLICATION_LANGUAGES
+    raise "ERROR: DEFAULT_LANGUAGE = ['Deutsch', 'de'] e.g. is not defined - define it in your initializers" unless defined? DEFAULT_LANGUAGE
     
     # parse all view files for translations - removed ones get removed from
     # the i18n translation yml's automatically
@@ -19,7 +19,7 @@ namespace :i18n do
     
     # rewrite default language file with updated translations
     puts "found #{translations.keys.size} unique translations"
-    write_translation_file(DEFAULT_LANGUAGE, translations)
+    write_translation_file(DEFAULT_LANGUAGE[1], translations)
     
     # write a file for each foreign language
     (APPLICATION_LANGUAGES - [DEFAULT_LANGUAGE]).each do |language|

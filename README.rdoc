@@ -20,8 +20,8 @@ Then run the generator that copies the translation rake task to your application
 
 Set these constants to make i18n screwdriver aware of the languages you are using
 
-  APPLICATION_LANGUAGES = ['de', 'en, 'fr', 'it']
-  DEFAULT_LANGUAGE = 'de'
+  APPLICATION_LANGUAGES = [['Deutsch', 'de'], ['English', 'en'], ...]
+  DEFAULT_LANGUAGE = ['Deutsch', 'de']
 
 In your views, helpers and controllers use the convenient underscore helper method for all your translations 
 
