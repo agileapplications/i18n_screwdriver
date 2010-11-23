@@ -24,11 +24,11 @@ namespace :i18n do
     # write a file for each foreign language
     (APPLICATION_LANGUAGES - [DEFAULT_LANGUAGE]).each do |language|
       # load foreign language file in temp hash
-      if File.exists?("config/locales/application.#{language}.yml")
-        existing_translations = YAML.load_file("config/locales/application.#{language}.yml")
-        existing_translations = existing_translations[language]
+      if File.exists?("config/locales/application.#{language[1]}.yml")
+        existing_translations = YAML.load_file("config/locales/application.#{language[1]}.yml")
+        existing_translations = existing_translations[language[1]]
       else
-        existing_translations = { language => {} }
+        existing_translations = { language[1] => {} }
       end
       
       # delete removed translations from hash
@@ -40,7 +40,7 @@ namespace :i18n do
       translations.each_key do |key|
         existing_translations[key] = "TRANSLATION_MISSING" unless existing_translations.has_key?(key)
       end
-      write_translation_file(language, existing_translations)
+      write_translation_file(language[1], existing_translations)
     end
   end
 
