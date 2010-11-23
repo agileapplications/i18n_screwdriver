@@ -47,7 +47,6 @@ In your tests (functionals and integration) you can use the same translation hel
 
 == Next steps
 
-* fix drawback that multiple translations on the same name are currently not recognized, happens very well with options for select tags
 * also recognize model validation error messages
 * DRY the code
 * test more (= test at all)

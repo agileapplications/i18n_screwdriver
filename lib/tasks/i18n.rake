@@ -89,10 +89,10 @@ namespace :i18n do
     File.open(file) do |io|
       io.each do |line| 
         line.scan(/_\("([^"]+)"\)/) do |match|
-          translations[match.gsub(/\./, '').strip] = match.strip
+          translations[match.first.gsub(/\./, '').strip] = match.first.strip
         end
         line.scan(/_\('([^']+)'\)/) do |match|
-          translations[match.gsub(/\./, '').strip] = match.strip
+          translations[match.first.gsub(/\./, '').strip] = match.first.strip
         end
       end
     end
