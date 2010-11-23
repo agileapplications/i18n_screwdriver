@@ -57,7 +57,7 @@ namespace :i18n do
           if input == ":q"
             break
           else
-            existing_translations[key] = 
+            existing_translations[key] = input
           end
         end
       end
