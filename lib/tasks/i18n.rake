@@ -1,4 +1,5 @@
 namespace :i18n do
+  desc 'find all translations in views, helpers and controllers'
   task :update => :environment do
     
     translations = {}
@@ -42,7 +43,8 @@ namespace :i18n do
       write_translation_file(language, existing_translations)
     end
   end
-  
+
+  desc 'translate foreign language file line by line'
   task :translate => :environment do
     raise "ERROR: usage: TRANSLATE=de rake i18n:translate" unless ENV['TRANSLATE']
     language = ENV['TRANSLATE']
