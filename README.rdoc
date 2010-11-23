@@ -51,7 +51,9 @@ In your tests (functionals and integration) you can use the same translation hel
 * DRY the code
 * test more (= test at all)
 * use ruby_parser instead of regex
-* support interpolation like "my name is #{user.full_name} and I am living in #{user.location}"
+* support interpolation like the following (take care about naming - could be different in other languages)
+
+  _("my name is %{name} and I am living in #{location}", :name => @name, :location => @location)
 
 == Contributing to i18n_screwdriver
  
