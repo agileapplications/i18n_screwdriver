@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{i18n_screwdriver}
-  s.version = "0.1.4"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tobias Miesel"]
-  s.date = %q{2010-11-19}
+  s.date = %q{2010-11-23}
   s.email = %q{agileapplications@gmail.com}
   s.extra_rdoc_files = [
     "README.rdoc"
@@ -22,9 +22,9 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "i18n_screwdriver.gemspec",
+    "lib/generators/screwdriver_generator.rb",
     "lib/i18n_screwdriver.rb",
     "lib/tasks/i18n.rake",
-    "rails/init.rb",
     "test/helper.rb",
     "test/test_i18n_screwdriver.rb"
   ]
