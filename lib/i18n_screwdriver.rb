@@ -13,3 +13,6 @@ module I18n
     end
   end
 end
+
+ActionView::Base.send :include, I18n::Screwdriver
+ActionController::Base.send :include, I18n::Screwdriver
