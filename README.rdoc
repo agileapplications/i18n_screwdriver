@@ -6,6 +6,12 @@ is that you have to use keys for every string to translate.
 That is one too many abstraction layers - I love the gettext syntax but I want to
 stick to the rails standard libraries. Therefor I created this small toolbox. 
 
+== Installation
+
+First run the generator that copies the translation rake task to your application task dir.
+
+  rails g screwdriver
+
 == Usage
 
 Set these constants to make i18n screwdriver aware of the languages you are using
@@ -18,7 +24,7 @@ In your views, helpers and controllers use the convenient underscore helper meth
   _("your translation")
 
 When you are done you have 2 helper rake tasks. The first one scans all your views, controllers and
-helpers for translation. It removes unused translation strings and creates an application.<lang>.yml file
+helpers for translations. It removes unused translation strings and creates an application.<lang>.yml file
 for each of your APPLICATION_LANGUAGES.
 
   rake i18n:update
