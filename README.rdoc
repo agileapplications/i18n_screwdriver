@@ -39,6 +39,12 @@ It gets recreated everytime you run the tasks - edit those translations in your 
 
   TRANSLATE=en rake i18n:translate
 
+== Test Helpers
+
+In your tests (functionals and integration) you can use the same translation helper
+
+  _("your translation")
+
 == Next steps
 
 * fix drawback that multiple translations on the same name are currently not recognized, happens very well with options for select tags

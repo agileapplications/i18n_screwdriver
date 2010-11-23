@@ -8,7 +8,7 @@ module I18n
       def _(translation)
         # the . is a special character in rails i18n - we have to strip it
         translation_without_dot = translation.gsub(/\./, '').strip
-        t("#{translation_without_dot}")
+        I18n.translate("#{translation_without_dot}")
       end
     end
   end
