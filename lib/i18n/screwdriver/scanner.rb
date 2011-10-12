@@ -51,7 +51,7 @@ module I18n
       def update_translations(language)
         existing_translations = {}
         file_name = PATH_TO_LOCALES + LOCALE_PREFIX + ".#{language}.yml"
-        existing_translations = YAML.load_file(file_name) if File.exists?(file_name)
+        existing_translations = YAML.load_file(file_name)[language] if File.exists?(file_name)
         
         syncronize_translations(existing_translations)
         write_translation_file(existing_translations, language)

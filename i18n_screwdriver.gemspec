@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "i18n_screwdriver"
-  s.version     = "0.4.0"
+  s.version     = "0.6.0"
   s.authors     = ["Tobias Miesel"]
   s.email       = ["agileapplications@gmail.com"]
   s.homepage    = "http://github.com/agileapplications/i18n_screwdriver"
