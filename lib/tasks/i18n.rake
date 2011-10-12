@@ -1,4 +1,9 @@
 namespace :i18n do
+  desc 'update translation files'
+  task :update => :environment do
+    I18n::Screwdriver::Scanner.run
+  end
+  
   desc 'translate foreign language file line by line'
   task :translate => :environment do
     raise "ERROR: usage: TRANSLATE=de rake i18n:translate" unless ENV['TRANSLATE']
