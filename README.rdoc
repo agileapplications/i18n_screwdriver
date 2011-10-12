@@ -20,8 +20,8 @@ Then run the generator that copies the translation rake task to your application
 
 Set these constants to make i18n screwdriver aware of the languages you are using
 
-  APPLICATION_LANGUAGES = ['de', 'en, 'fr', 'it']
   DEFAULT_LANGUAGE = 'de'
+  FOREIGN_LANGUAGES = ['en, 'fr', 'it']
 
 In your views, helpers and controllers use the convenient underscore helper method for all your translations 
 
@@ -41,9 +41,8 @@ It gets recreated everytime you run the tasks - edit those translations in your 
 
 == Next steps
 
-* fix drawback that multiple translations on the same name are currently not recognized, happens very well with options for select tags
+* fix drawback that multiple translations on the same line are currently not recognized, happens very well with options for select tags
 * also recognize model validation error messages
-* DRY the code
 * test more
 * use ruby_parser instead of regex
 * support interpolation like "my name is #{user.full_name} and I am living in #{user.location}"
@@ -60,4 +59,4 @@ It gets recreated everytime you run the tasks - edit those translations in your 
 
 == Copyright
 
-Copyright (c) 2010 Tobias Miesel. Released unter the MIT license.
+Copyright (c) 2010-2011 Tobias Miesel. Released unter the MIT license.
