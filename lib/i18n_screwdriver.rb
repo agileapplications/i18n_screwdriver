@@ -14,7 +14,14 @@ module I18n
       def _(translation)
         # the . is a special character in rails i18n - we have to strip it
         translation_without_dot = translation.gsub(/\./, '').strip
-        I18n.translate("#{translation_without_dot}")
+        translated = I18n.translate(translation_without_dot)
+        
+        if defined?(Rails) && Rails.env.development? && translated.start_with?('translation missing')
+          # TODO: add translation with key to all translation files
+          #       so that rake task is obsolete - instant feedback!
+        end
+        
+        translated
       end
     end
   end

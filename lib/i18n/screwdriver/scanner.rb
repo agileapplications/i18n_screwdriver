@@ -25,6 +25,26 @@ module I18n
         puts "#{@translations.keys.length} unique translations found"
       end
       
+      def translate(language)
+        file_name = PATH_TO_LOCALES + LOCALE_PREFIX + ".#{language}.yml"
+        raise "File #{file_name} not found!" unless File.exists?(file_name)
+        existing_translations = YAML.load_file(file_name)[language]
+        
+        existing_translations.each do |key, translation|
+          if translation.length == 0
+            puts "> #{key}"
+            input = STDIN.gets.chomp
+            if input == ":q"
+              break
+            else
+              existing_translations[key] = input
+            end
+          end
+        end
+
+        write_translation_file(existing_translations, language)
+      end
+      
       
       private
       
