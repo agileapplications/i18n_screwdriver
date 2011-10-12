@@ -1,3 +1,9 @@
+# encoding: utf-8
+
+require 'action_view'
+require 'action_controller'
+require 'i18n/screwdriver/scanner'
+
 module I18n
   module Screwdriver
     def self.included(klass)
@@ -8,7 +14,7 @@ module I18n
       def _(translation)
         # the . is a special character in rails i18n - we have to strip it
         translation_without_dot = translation.gsub(/\./, '').strip
-        t("#{translation_without_dot}")
+        I18n.translate("#{translation_without_dot}")
       end
     end
   end
@@ -16,3 +22,5 @@ end
 
 ActionView::Base.send :include, I18n::Screwdriver
 ActionController::Base.send :include, I18n::Screwdriver
+ActionController::IntegrationTest.send :include, I18n::Screwdriver
+ActionController::TestCase.send :include, I18n::Screwdriver
