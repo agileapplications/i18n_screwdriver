@@ -21,6 +21,8 @@ module I18n
         FOREIGN_LANGUAGES.each do |language|
           update_translations(language)
         end
+        
+        puts "#{@translations.keys.length} unique translations found"
       end
       
       
