@@ -27,10 +27,9 @@ module I18n
       private
       
       def update_translations(language)
-        {}.tap do |existing_translations|
-          file_name = PATH_TO_LOCALES + LOCALE_PREFIX + ".#{language}.yml"
-          existing_translations = YAML.load_file(file_name) if File.exists?(file_name)
-        end
+        existing_translations = {}
+        file_name = PATH_TO_LOCALES + LOCALE_PREFIX + ".#{language}.yml"
+        existing_translations = YAML.load_file(file_name) if File.exists?(file_name)
         
         syncronize_translations(existing_translations)
         write_translation_file(existing_translations, language)
