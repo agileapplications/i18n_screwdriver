@@ -3,7 +3,7 @@
 Translating applications is often a pain in the ass. The problem with rails i18n
 is that you have to use keys for every string to translate.
 That is one too many abstraction layers - I love the gettext syntax but I want to
-stick to the rails standard libraries. Therefor I created this small toolbox. 
+stick to the rails standard libraries. Therefor I created this small toolbox.
 
 == Installation
 
@@ -19,16 +19,16 @@ Then run the generator that copies the translation rake task to your application
 
 Set these constants to make i18n screwdriver aware of the languages you are using
 
-  APPLICATION_LANGUAGES = [['Deutsch', 'de'], ['English', 'en'], ...]
-  DEFAULT_LANGUAGE = ['Deutsch', 'de']
+  I18n.default_locale
+  I18n.available_locales
 
-In your views, helpers and controllers use the convenient underscore helper method for all your translations 
+In your views, helpers and controllers use the convenient underscore helper method for all your translations
 
   _("your translation")
 
 When you are done you have 2 helper rake tasks. The first one scans all your views, controllers and
 helpers for translations. It removes unused translation strings and creates an application.<lang>.yml file
-for each of your APPLICATION_LANGUAGES.
+for each of your I18n.available_locales.
 
   rake i18n:update
 
@@ -56,7 +56,7 @@ In your tests (functionals and integration) you can use the same translation hel
   _("my name is %{name} and I am living in %{location}", :name => @name, :location => @location)
 
 == Contributing to i18n_screwdriver
- 
+
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
 * Fork the project
@@ -67,4 +67,4 @@ In your tests (functionals and integration) you can use the same translation hel
 
 == Copyright
 
-Copyright (c) 2010 Tobias Miesel. Released unter the MIT license.
+Copyright (c) 2010 Tobias Miesel & Corin Langosch. Released unter the MIT license.

@@ -1,20 +1,35 @@
-module I18n
-  module Screwdriver
-    def self.included(klass)
-      klass.send :include, InstanceMethods
+require "i18n_screwdriver/version"
+require "i18n_screwdriver/rails"
+
+module I18nScrewdriver
+  def self.filename(locale)
+    "config/locales/application.#{locale}.yml"
+  end
+
+  def self.for_key(string)
+    string.gsub(/\./, "").strip
+  end
+
+  def self.load_translations(locale)
+    filename = self.filename(locale)
+    raise "File #{filename} not found!" unless File.exists?(filename)
+    YAML.load_file(filename)[locale]
+  end
+
+  def self.write_translations(locale, translations)
+    File.open(filename(locale), "w") do |file|
+      file.puts "# use rake task i18n:update to generate this file"
+      file.puts
+      file.puts({locale => translations}.to_yaml)
+      file.puts
     end
-    
-    module InstanceMethods
-      def _(translation)
-        # the . is a special character in rails i18n - we have to strip it
-        translation_without_dot = translation.gsub(/\./, '').strip
-        I18n.translate("#{translation_without_dot}")
-      end
+  end
+
+  def self.grab_texts_to_be_translated(string)
+    [].tap do |texts|
+      texts.concat(string.scan(/_\("([^"]+)"\)/).map{ |v| v[0] })
+      texts.concat(string.scan(/_\('([^']+)'\)/).map{ |v| v[0] })
     end
   end
 end
 
-ActionView::Base.send :include, I18n::Screwdriver
-ActionController::Base.send :include, I18n::Screwdriver
-ActionController::IntegrationTest.send :include, I18n::Screwdriver
-ActionController::TestCase.send :include, I18n::Screwdriver
