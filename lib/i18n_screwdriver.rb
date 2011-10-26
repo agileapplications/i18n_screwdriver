@@ -1,4 +1,5 @@
 require "i18n_screwdriver/version"
+require "i18n_screwdriver/translation"
 require "i18n_screwdriver/rails"
 
 module I18nScrewdriver
