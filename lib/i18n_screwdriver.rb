@@ -8,7 +8,7 @@ module I18nScrewdriver
   end
 
   def self.for_key(string)
-    string.gsub(/\./, "").strip
+    Digest::MD5.hexdigest(string.strip)
   end
 
   def self.load_translations(locale)
@@ -21,7 +21,7 @@ module I18nScrewdriver
     File.open(filename(locale), "w") do |file|
       file.puts "# use rake task i18n:update to generate this file"
       file.puts
-      file.puts({locale => translations}.to_yaml)
+      file.puts({locale => in_utf8(translations)}.to_yaml)
       file.puts
     end
   end
@@ -30,6 +30,14 @@ module I18nScrewdriver
     [].tap do |texts|
       texts.concat(string.scan(/_\("([^"]+)"\)/).map{ |v| v[0] })
       texts.concat(string.scan(/_\('([^']+)'\)/).map{ |v| v[0] })
+    end
+  end
+
+  def self.in_utf8(hash)
+    {}.tap do |result|
+      hash.each do |k, v|
+        result[k.encode('UTF-8')] = (v || "").encode('UTF-8')
+      end
     end
   end
 end

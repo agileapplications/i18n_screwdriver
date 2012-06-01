@@ -65,11 +65,12 @@ namespace :i18n do
     raise "ERROR: usage: TRANSLATE=de rake i18n:translate" unless ENV['TRANSLATE']
     locale = ENV['TRANSLATE']
 
+    texts = I18nScrewdriver.load_translations(default_locale)
     translations = I18nScrewdriver.load_translations(locale)
-    puts "Translating #{translations.keys.size} entries to <#{locale}> (enter :q to save and quit):"
+    puts "Translating #{translations.keys.size} entries from <#{default_locale}> to <#{locale}> (enter :q to save and quit, ctrl-c to abort):"
     translations.keys.sort.each do |key|
-      next unless [dummy_text, ""].include?(translations[key])
-      puts "> #{key}"
+      next unless [dummy_text, "", nil].include?(translations[key])
+      puts "> #{texts[key]}"
       input = STDIN.gets.chomp
       break if input == ":q"
       translations[key] = input
