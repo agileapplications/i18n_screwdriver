@@ -40,5 +40,36 @@ module I18nScrewdriver
       end
     end
   end
+
+  def self.unescape_string(string)
+    "".tap do |result|
+      in_backslash = false
+      string.each_char do |char|
+        if in_backslash
+          case char
+          when 'r'
+            result << "\r"
+          when 'n'
+            result << "\n"
+          when 't'
+            result << "\t"
+          when '\\'
+            result << '\\'
+          else
+            result << '\\'
+            result << char
+          end
+          in_backslash = false
+        else
+          case char
+          when '\\'
+            in_backslash = true
+          else
+            result << char
+          end
+        end
+      end
+    end
+  end
 end
 

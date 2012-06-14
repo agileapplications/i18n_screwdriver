@@ -25,6 +25,9 @@ namespace :i18n do
       texts.concat(I18nScrewdriver.grab_texts_to_be_translated(File.read(file)))
     end
 
+    # properly handle character codes in strings (\n, \r, \t, \\)
+    texts.map!{ |text| I18nScrewdriver.unescape_string(text) }
+
     # remove duplicates
     texts.uniq!
 
