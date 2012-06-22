@@ -26,6 +26,15 @@ In your views, helpers and controllers use the convenient underscore helper meth
 
   _("your translation")
 
+Variable interpolation works as for normal strings
+
+  _("Hello %{name}!") % {name: "Liah"}
+
+For awesome support for links inside translations you can use this syntax, which uses the normal rails view/ route helpers internally
+
+  _("Please <<click here>> for more details or visit <<this link>> to continue."){ [@item, "http://continue.com"] }
+  _("Open this <<fancy link>> in new window or visit <<this link>> to continue."){ [[@item, target: "_blank"], "http://continue.com"] }
+
 When you are done you have 2 helper rake tasks. The first one scans all your views, controllers and
 helpers for translations. It removes unused translation strings and creates an application.<lang>.yml file
 for each of your I18n.available_locales.
