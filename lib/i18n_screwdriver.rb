@@ -29,8 +29,8 @@ module I18nScrewdriver
 
   def self.grab_texts_to_be_translated(string)
     [].tap do |texts|
-      texts.concat(string.scan(/_\("([^"]+)"\)/).map{ |v| v[0] })
-      texts.concat(string.scan(/_\('([^']+)'\)/).map{ |v| v[0] })
+      texts.concat(string.scan(/_\("([^"]*)"\)/).map{ |v| v[0] })
+      texts.concat(string.scan(/_\('([^']*)'\)/).map{ |v| v[0] })
     end
   end
 
