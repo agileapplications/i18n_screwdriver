@@ -1,7 +1,11 @@
 module I18nScrewdriver
   class Translation < ActiveSupport::SafeBuffer
+    attr_accessor :text, :options
+
     def self.new(text, options = {}, &block)
       super(I18n.translate(I18nScrewdriver.for_key(text), options)).tap do |translation|
+        translation.text = text
+        translation.options = options
         translation.linkify(block.binding, *block.call) if block
       end
     end
