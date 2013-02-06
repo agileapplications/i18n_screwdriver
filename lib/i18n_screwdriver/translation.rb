@@ -3,19 +3,30 @@ module I18nScrewdriver
     attr_accessor :text, :options
 
     def self.new(text, options = {}, &block)
-      super(I18n.translate(I18nScrewdriver.for_key(text), options)).tap do |translation|
-        translation.text = text
-        translation.options = options
-        translation.linkify(block.binding, *block.call) if block
+      translation = super(options[:raw] ? text : I18n.translate(I18nScrewdriver.for_key(text), options))
+      translation.text = text
+      translation.options = options
+
+      if block
+        urls = Array(block.call)
+        urls_to_interpolate_count = translation.scan(/<<.+?>>/).count
+        raise ArgumentError, "too few urls specified" if urls.count < urls_to_interpolate_count
+        if urls.count > urls_to_interpolate_count
+          raise ArgumentError, "expected extra url to be a hash intended for variable interpolation" unless urls.last.is_a?(Hash)
+          translation = new(translation % urls.last, :raw => true)
+        end
+        translation.linkify(block.binding, urls)
       end
+
+      translation
     end
 
-    def linkify(binding, *urls)
+    def linkify(binding, urls)
       context = binding ? eval('self', binding) : self
       keep_html_safety do
         gsub!(/<<.+?>>/).each_with_index do |text, index|
           context.instance_eval do
-            link_to text[2..-3], *urls[index]
+            link_to(text[2..-3], *urls[index])
           end
         end
       end
