@@ -1,5 +1,5 @@
 module I18nScrewdriver
-  class Translation < ActiveSupport::SafeBuffer
+  class Translation < String
     attr_accessor :text, :options
 
     def self.new(text, options = {}, &block)
@@ -12,7 +12,7 @@ module I18nScrewdriver
         urls_to_interpolate_count = translation.scan(/<<.+?>>/).count
         raise ArgumentError, "too few urls specified" if urls.count < urls_to_interpolate_count
         if urls.count > urls_to_interpolate_count
-          raise ArgumentError, "expected extra url to be a hash intended for variable interpolation" unless urls.last.is_a?(Hash)
+          raise ArgumentError, "too many urls specified (#{urls.count} <> #{urls_to_interpolate_count})" unless urls.last.is_a?(Hash)
           translation = new(translation % urls.last, :raw => true)
         end
         translation.linkify(block.binding, urls)
