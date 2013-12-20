@@ -5,6 +5,7 @@ require "i18n_screwdriver/version"
 Gem::Specification.new do |s|
   s.name        = "i18n_screwdriver"
   s.version     = I18nScrewdriver::VERSION
+  s.license     = "MIT"
   s.authors     = ["Tobias Miesel", "Corin Langosch"]
   s.email       = ["agileapplications@gmail.com", "info@corinlangosch.com"]
   s.homepage    = "https://github.com/agileapplications/i18n_screwdriver"
