@@ -36,7 +36,7 @@ module I18nScrewdriver
 
   def self.in_utf8(hash)
     {}.tap do |result|
-      hash.each do |k, v|
+      hash.sort.each do |k, v|
         result[k.encode('UTF-8')] = (v || "").encode('UTF-8')
       end
     end
