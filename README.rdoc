@@ -26,6 +26,10 @@ In your views, helpers and controllers use the convenient underscore helper meth
 
   _("your translation")
 
+Starting with version 6.0 you can also use symbols as keys
+
+  _(:my_long_text)
+
 Variable interpolation works as for normal strings
 
   _("Hello %{name}!") % {name: "Liah"}
