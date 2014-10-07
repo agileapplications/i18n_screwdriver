@@ -5,7 +5,7 @@ require "i18n_screwdriver/rails"
 
 module I18nScrewdriver
   def self.filename(locale)
-    "config/locales/application.#{locale}.yml"
+    File.join("config", "locales", "application.#{locale}.yml")
   end
 
   def self.for_key(string)
@@ -13,9 +13,9 @@ module I18nScrewdriver
   end
 
   def self.load_translations(locale)
-    filename = self.filename(locale)
-    raise "File #{filename} not found!" unless File.exists?(filename)
-    YAML.load_file(filename)[locale]
+    path = filename(locale)
+    raise "File #{path} not found!" unless File.exists?(path)
+    YAML.load_file(path)[locale]
   end
 
   def self.write_translations(locale, translations)
@@ -75,6 +75,37 @@ module I18nScrewdriver
         end
       end
     end
+  end
+
+  def self.gather_translations
+    texts = []
+    symbols = []
+    Dir.glob(folder).each do |file|
+      input = File.read(file)
+      texts.concat(grab_texts_to_be_translated(input))
+      symbols.concat(grab_symbols_to_be_translated(input))
+    end
+
+    translations = Hash[texts.uniq.map{ |text| [for_key(text), text] }]
+    translations.merge(Hash[symbols.uniq.map{ |symbol| [symbol, ""] }])
+  end
+
+  def self.default_locale
+    @default_locale ||= begin
+      raise "Please set I18.default_locale" unless I18n.default_locale.present?
+      I18n.default_locale.to_s
+    end
+  end
+
+  def self.available_locales
+    @available_locales ||= begin
+      raise "Please set I18.available_locales" unless I18n.available_locales.count > 0
+      I18n.available_locales.map(&:to_s)
+    end
+  end
+
+  def self.dummy_text
+    "TRANSLATION_MISSING"
   end
 end
 

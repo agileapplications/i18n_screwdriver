@@ -1,44 +1,9 @@
 namespace :i18n do
-  def default_locale
-    @default_locale ||= begin
-      raise "Please set I18.default_locale" unless I18n.default_locale.present?
-      I18n.default_locale.to_s
-    end
-  end
-
-  def available_locales
-    @available_locales ||= begin
-      raise "Please set I18.available_locales" unless I18n.available_locales.count > 0
-      I18n.available_locales.map(&:to_s)
-    end
-  end
-
-  def dummy_text
-    "TRANSLATION_MISSING"
-  end
-
   desc 'Find all translations in views, helpers and controllers'
   task :update => :environment do
-    # parse all files for texts to be translated
-    texts = []
-    symbols = []
-    Dir.glob("**/*.{haml,erb,slim,rb}").each do |file|
-      input = File.read(file)
-      texts.concat(I18nScrewdriver.grab_texts_to_be_translated(input))
-      symbols.concat(I18nScrewdriver.grab_symbols_to_be_translated(input))
-    end
-
-    # remove duplicates
-    texts.uniq!
-    symbols.uniq!
-
-    # transform translations into a hash, sanitizing the keys
-    translations = Hash[texts.map{ |text| [I18nScrewdriver.for_key(text), text] }]
-    translations.merge!(Hash[symbols.map{ |symbol| [symbol, ""] }])
-
-    # rewrite default language file with updated translations
-    puts "Found #{translations.keys.size} unique translations"
+    translations = I18nScrewdriver.gather_translations("**/*.{haml,erb,slim,rb}")
     I18nScrewdriver.write_translations(default_locale, translations)
+    puts "Found #{translations.keys.size} unique translations"
   end
 
   desc 'Write dummy translation files so they can manually be translated'
