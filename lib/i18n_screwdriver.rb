@@ -34,6 +34,10 @@ module I18nScrewdriver
     end
   end
 
+  def self.grab_symbols_to_be_translated(string)
+    string.scan(/_\(:(.*?)\)/).flatten
+  end
+
   def self.in_utf8(hash)
     {}.tap do |result|
       hash.sort.each do |k, v|

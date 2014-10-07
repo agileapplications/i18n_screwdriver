@@ -21,19 +21,20 @@ namespace :i18n do
   task :update => :environment do
     # parse all files for texts to be translated
     texts = []
+    symbols = []
     Dir.glob("**/*.{haml,erb,slim,rb}").each do |file|
-      texts.concat(I18nScrewdriver.grab_texts_to_be_translated(File.read(file)))
+      input = File.read(file)
+      texts.concat(I18nScrewdriver.grab_texts_to_be_translated(input))
+      symbols.concat(I18nScrewdriver.grab_symbols_to_be_translated(input))
     end
-
-    # properly handle character codes in strings (\n, \r, \t, \\)
-    texts.map!{ |text| I18nScrewdriver.unescape_string(text) }
 
     # remove duplicates
     texts.uniq!
+    symbols.uniq!
 
     # transform translations into a hash, sanitizing the keys
-    translations = {}
-    texts.each{ |text| translations[I18nScrewdriver.for_key(text)] = text }
+    translations = Hash[texts.map{ |text| [I18nScrewdriver.for_key(text), text] }]
+    translations.merge!(Hash[symbols.map{ |symbol| [symbol, ""] }])
 
     # rewrite default language file with updated translations
     puts "Found #{translations.keys.size} unique translations"
