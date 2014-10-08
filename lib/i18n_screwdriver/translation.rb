@@ -3,7 +3,7 @@ module I18nScrewdriver
     attr_accessor :text, :options
 
     def self.new(text, options = {}, &block)
-      translation = super(options[:raw] ? text : I18n.translate(I18nScrewdriver.for_key(text), options))
+      translation = super(options[:raw] ? text : I18nScrewdriver.translate(text, options))
       translation.text = text
       translation.options = options
 

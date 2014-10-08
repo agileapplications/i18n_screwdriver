@@ -8,7 +8,7 @@ module I18nScrewdriver
     File.join("config", "locales", "application.#{locale}.yml")
   end
 
-  def self.for_key(string)
+  def self.generate_key(string)
     string = string.strip
     (string =~ /^:[a-z][a-z0-9_]*$/) ? string : Digest::MD5.hexdigest(string)
   end
@@ -90,8 +90,8 @@ module I18nScrewdriver
       texts.concat(grab_texts_to_be_translated(input))
       symbols.concat(grab_symbols_to_be_translated(input))
     end
-    translations = Hash[texts.uniq.map{ |text| [for_key(text), text] }]
-    translations.merge(Hash[symbols.uniq.map{ |symbol| [for_key(symbol), ""] }])
+    translations = Hash[texts.uniq.map{ |text| [generate_key(text), extract_text(text)] }]
+    translations.merge(Hash[symbols.uniq.map{ |symbol| [generate_key(symbol), ""] }])
   end
 
   def self.default_locale
@@ -128,5 +128,14 @@ module I18nScrewdriver
     {}.tap do |new_hash|
       hash.each{ |k, v| new_hash[k.to_s] = v.to_s }
     end
+  end
+
+  def self.translate(string, options = {})
+    I18n.translate(generate_key(string), options)
+  end
+
+  def self.extract_text(string)
+    namespace, text = string.split("|", 2)
+    text ? text : namespace
   end
 end
