@@ -30,6 +30,8 @@ Starting with version 6.0 you can also use symbols as keys
 
   _(:my_long_text)
 
+Starting with version 7.0 we added namespaces. A translation in the form of _("User|Name") will use the full string as a key but only display the part after the pipe, so "Name". This is useful if you want to have text translated differently according to the context in some languages but have it the same in the source language. For example "User|Name" (in German "Benutzername") and "Account|Name" (in German "Accountname").
+
 Variable interpolation works as for normal strings
 
   _("Hello %{name}!") % {name: "Liah"}
