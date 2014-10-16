@@ -108,17 +108,13 @@ module I18nScrewdriver
     end
   end
 
-  def self.dummy_text
-    "TRANSLATION_MISSING"
-  end
-
   def self.update_translations_file(locale, translations)
     existing_translations = file_with_translations_exists?(locale) ? load_translations(locale) : {}
     existing_translations.select!{ |k| translations.has_key?(k) }
 
     translations.each do |k, v|
       next if existing_translations[k]
-      existing_translations[k] = (default_locale == locale) ? v : dummy_text
+      existing_translations[k] = (default_locale == locale) ? v : nil
     end
 
     write_translations(locale, existing_translations)
@@ -131,7 +127,8 @@ module I18nScrewdriver
   end
 
   def self.translate(string, options = {})
-    I18n.translate(generate_key(string), options)
+    translation = I18n.translate(generate_key(string), options)
+    translation.present? ? translation : "TRANSLATION_MISSING"
   end
 
   def self.extract_text(string)
