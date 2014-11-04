@@ -3,9 +3,8 @@ namespace :i18n do
   task :update => :environment do
     translations = I18nScrewdriver.gather_translations
     puts "Found #{translations.keys.size} unique translations"
-    I18nScrewdriver.available_locales.each do |locale|
-      I18nScrewdriver.update_translations_file(locale, translations)
-    end
+    default_locale = I18n.default_locale.to_s
+    I18nScrewdriver.update_translations_file(default_locale, translations)
   end
 
   desc 'Translate all not yet translated texts for a given locale'
