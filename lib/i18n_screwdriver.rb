@@ -27,7 +27,7 @@ module I18nScrewdriver
     File.open(filename_for_locale(locale), "w") do |file|
       file.puts "# use rake task i18n:update to generate this file"
       file.puts
-      file.puts({locale => in_utf8(translations)}.to_yaml)
+      file.puts({locale => in_utf8(translations)}.to_yaml(:line_width => -1))
       file.puts
     end
   end
