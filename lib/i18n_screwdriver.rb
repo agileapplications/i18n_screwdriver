@@ -4,6 +4,10 @@ require "i18n_screwdriver/translation_helper"
 require "i18n_screwdriver/rails"
 
 module I18nScrewdriver
+  DUMMY_TEXT = "TRANSLATION_MISSING"
+
+  Error = Class.new(StandardError)
+
   def self.filename_for_locale(locale)
     File.join("config", "locales", "application.#{locale}.yml")
   end
@@ -19,7 +23,7 @@ module I18nScrewdriver
 
   def self.load_translations(locale)
     path = filename_for_locale(locale)
-    raise "File #{path} not found!" unless File.exists?(path)
+    raise Error, "File #{path} not found!" unless File.exists?(path)
     sanitize_hash(YAML.load_file(path)[locale])
   end
 
@@ -96,14 +100,14 @@ module I18nScrewdriver
 
   def self.default_locale
     @default_locale ||= begin
-      raise "Please set I18.default_locale" unless I18n.default_locale.present?
+      raise Error, "Please set I18.default_locale" unless I18n.default_locale.present?
       I18n.default_locale.to_s
     end
   end
 
   def self.available_locales
     @available_locales ||= begin
-      raise "Please set I18.available_locales" unless I18n.available_locales.count > 0
+      raise Error, "Please set I18.available_locales" unless I18n.available_locales.count > 0
       I18n.available_locales.map(&:to_s)
     end
   end
@@ -128,7 +132,7 @@ module I18nScrewdriver
 
   def self.translate(string, options = {})
     translation = I18n.translate(generate_key(string), options)
-    translation.present? ? translation : "TRANSLATION_MISSING"
+    translation.present? ? translation : DUMMY_TEXT
   end
 
   def self.extract_text(string)
