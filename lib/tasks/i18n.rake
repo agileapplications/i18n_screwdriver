@@ -1,6 +1,9 @@
 namespace :i18n do
   desc 'Find all translations in views, helpers and controllers'
-  task :update => :environment do
+  task :update do
+    require "i18n_screwdriver"
+    require "yaml"
+
     translations = I18nScrewdriver.gather_translations
     puts "Found #{translations.keys.size} unique translations"
     default_locale = I18n.default_locale.to_s
@@ -8,7 +11,10 @@ namespace :i18n do
   end
 
   desc 'Translate all not yet translated texts for a given locale'
-  task :translate => :environment do
+  task :translate do
+    require "i18n_screwdriver"
+    require "yaml"
+
     raise "ERROR: usage: TRANSLATE=de rake i18n:translate" unless ENV['TRANSLATE']
     locale = ENV['TRANSLATE']
     default_locale = I18n.default_locale.to_s
