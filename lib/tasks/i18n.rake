@@ -29,7 +29,7 @@ namespace :i18n do
 
     puts "Translating #{translations.keys.size} entries from <#{default_locale}> to <#{locale}> (enter :q to save and quit, ctrl-c to abort):"
     texts.keys.sort.each do |key|
-      next unless [I18nScrewdriver::DUMMY_TEXT, "", nil].include?(translations[key])
+      next unless ["", nil].include?(translations[key])
       puts "> #{texts[key]}"
       input = STDIN.gets.chomp
       break if input == ":q"

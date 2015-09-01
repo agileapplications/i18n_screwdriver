@@ -4,8 +4,6 @@ require "i18n_screwdriver/translation_helper"
 require "i18n_screwdriver/rails"
 
 module I18nScrewdriver
-  DUMMY_TEXT = "TRANSLATION_MISSING"
-
   Error = Class.new(StandardError)
 
   def self.filename_for_locale(locale)
@@ -131,8 +129,9 @@ module I18nScrewdriver
   end
 
   def self.translate(string, options = {})
-    translation = I18n.translate(generate_key(string), options)
-    translation.present? ? translation : DUMMY_TEXT
+    I18n.translate!(generate_key(string), options)
+  rescue I18n::MissingTranslationData
+    I18n.translate(string, options)
   end
 
   def self.extract_text(string)
