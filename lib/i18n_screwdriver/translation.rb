@@ -1,5 +1,7 @@
 module I18nScrewdriver
   class Translation < String
+    Error = Class.new(StandardError)
+
     attr_accessor :text, :options
 
     def self.new(text, options = {}, &block)
@@ -10,15 +12,20 @@ module I18nScrewdriver
       if block
         urls = Array(block.call)
         urls_to_interpolate_count = translation.scan(/<<.+?>>/).count
-        raise ArgumentError, "too few urls specified" if urls.count < urls_to_interpolate_count
-        if urls.count > urls_to_interpolate_count
-          raise ArgumentError, "too many urls specified (#{urls.count} <> #{urls_to_interpolate_count})" unless urls.last.is_a?(Hash)
-          translation = new(translation % urls.last, :raw => true)
-        end
+        emit_warning("invalid number of urls specified (#{urls.count} <> #{urls_to_interpolate_count})") unless urls.count == urls_to_interpolate_count
         translation.linkify(block.binding, urls)
       end
 
       translation
+    end
+
+    def self.emit_warning(message)
+      raise Error, message unless ::Rails.env.production?
+      ::Rails.logger.warn(%|I18nScrewdriver: #{message}\n#{application_frames(caller).join("\n")}|)
+    end
+
+    def self.application_frames(backtrace)
+      backtrace.select{ |path| path.starts_with?(::Rails.root.to_s) }
     end
 
     def linkify(binding, urls)
@@ -42,4 +49,3 @@ module I18nScrewdriver
     end
   end
 end
-
