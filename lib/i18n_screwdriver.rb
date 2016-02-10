@@ -45,6 +45,13 @@ module I18nScrewdriver
     string.scan(/_\((:[a-z][a-z0-9_]*)\)/).flatten
   end
 
+  def self.grab_js_texts_to_be_translated(string)
+    [].tap do |texts|
+      texts.concat(string.scan(/\bI18n\.screw\(?\s*(?<!\\)"(.*?)(?<!\\)"/).map{ |v| unescape_string(v[0]) })
+      texts.concat(string.scan(/\bI18n\.screw\(?\s*(?<!\\)'(.*?)(?<!\\)'/).map{ |v| unescape_string(v[0]) })
+    end
+  end
+
   def self.in_utf8(hash)
     {}.tap do |result|
       hash.sort.each do |k, v|
@@ -87,11 +94,18 @@ module I18nScrewdriver
   def self.gather_translations
     texts = []
     symbols = []
+
     Dir.glob("**/*.{haml,erb,slim,rb}").each do |file|
       input = File.read(file)
       texts.concat(grab_texts_to_be_translated(input))
       symbols.concat(grab_symbols_to_be_translated(input))
     end
+
+    Dir.glob("**/*.{js,coffee,hamlc,ejs,erb}").each do |file|
+      input = File.read(file)
+      texts.concat(grab_js_texts_to_be_translated(input))
+    end
+
     translations = Hash[texts.uniq.map{ |text| [generate_key(text), extract_text(text)] }]
     translations.merge(Hash[symbols.uniq.map{ |symbol| [generate_key(symbol), ""] }])
   end
