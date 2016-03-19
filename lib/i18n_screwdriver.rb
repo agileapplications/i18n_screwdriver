@@ -96,12 +96,14 @@ module I18nScrewdriver
     symbols = []
 
     Dir.glob("**/*.{haml,erb,slim,rb}").each do |file|
+      next unless File.file?(file)
       input = File.read(file)
       texts.concat(grab_texts_to_be_translated(input))
       symbols.concat(grab_symbols_to_be_translated(input))
     end
 
     Dir.glob("**/*.{js,coffee,hamlc,ejs,erb}").each do |file|
+      next unless File.file?(file)
       input = File.read(file)
       texts.concat(grab_js_texts_to_be_translated(input))
     end
