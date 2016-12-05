@@ -49,6 +49,7 @@ module I18nScrewdriver
     [].tap do |texts|
       texts.concat(string.scan(/\bI18n\.screw\(?\s*(?<!\\)"(.*?)(?<!\\)"/).map{ |v| unescape_string(v[0]) })
       texts.concat(string.scan(/\bI18n\.screw\(?\s*(?<!\\)'(.*?)(?<!\\)'/).map{ |v| unescape_string(v[0]) })
+      texts.concat(string.scan(/\bI18n\.screw\(?\s*(?<!\\)`(.*?)(?<!\\)`/).map{ |v| unescape_string(v[0]) })
     end
   end
 

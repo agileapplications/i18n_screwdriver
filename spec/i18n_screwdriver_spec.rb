@@ -14,6 +14,11 @@ describe I18nScrewdriver do
       expect(I18nScrewdriver.grab_js_texts_to_be_translated(%|=I18n.screw('Hi %{name}!', name: "gucki")|)).to eq(["Hi %{name}!"])
       expect(I18nScrewdriver.grab_js_texts_to_be_translated(%|=I18n.screw 'test!'|)).to eq(["test!"])
       expect(I18nScrewdriver.grab_js_texts_to_be_translated(%|=I18n.screw 'Hi %{name}!', name: "gucki"|)).to eq(["Hi %{name}!"])
+
+      expect(I18nScrewdriver.grab_js_texts_to_be_translated(%|=I18n.screw(`test!`)|)).to eq(["test!"])
+      expect(I18nScrewdriver.grab_js_texts_to_be_translated(%|=I18n.screw( `test!`)|)).to eq(["test!"])
+      expect(I18nScrewdriver.grab_js_texts_to_be_translated(%|=I18n.screw(`Hi ${name}!`)"|)).to eq(["Hi ${name}!"])
+      expect(I18nScrewdriver.grab_js_texts_to_be_translated(%|=I18n.screw(`Hi %{name}!`, name: "gucki")|)).to eq(["Hi %{name}!"])
     end
   end
 end
