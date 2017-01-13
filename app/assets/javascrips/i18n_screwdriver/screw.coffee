@@ -6,5 +6,5 @@ interpolate = (message, data) ->
 I18n.screw = (message, data) ->
   md5 = window.md5(message)
   translation = I18n.translations[I18n.locale][md5]
-  translation ?= "[#{I18n.locale}] #{message}"
+  translation ?= I18n.onMissingTranslation(md5, message)
   interpolate(translation, data)
