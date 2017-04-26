@@ -11,7 +11,7 @@ module I18nScrewdriver
   end
 
   def self.generate_key(source)
-    return ":#{source}" if source.is_a? Symbol
+    return ":#{source}" if source.is_a?(Symbol)
     source = source.strip
     (source =~ /^:[a-z][a-z0-9_]*$/) ? source : Digest::MD5.hexdigest(source)
   end
