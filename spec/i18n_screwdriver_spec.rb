@@ -21,4 +21,20 @@ describe I18nScrewdriver do
       expect(I18nScrewdriver.grab_js_texts_to_be_translated(%|=I18n.screw(`Hi %{name}!`, name: "gucki")|)).to eq(["Hi %{name}!"])
     end
   end
+
+  describe "translates (oh really?)" do
+    before do
+      I18n.locale = :en
+    end
+    it "translate a string" do
+      expect(I18nScrewdriver.translate("good morning")).to eq("good morning")
+      I18n.locale = :it
+      expect(I18nScrewdriver.translate("good morning")).to eq("buongiorno")
+    end
+    it "translate a symbol" do
+      expect(I18nScrewdriver.translate(:intro_text)).to eq("a long intro text")
+      I18n.locale = :it
+      expect(I18nScrewdriver.translate(:intro_text)).to eq("un lungo testo introduttivo")
+    end
+  end
 end
