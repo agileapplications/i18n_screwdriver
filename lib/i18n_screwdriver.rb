@@ -11,12 +11,9 @@ module I18nScrewdriver
   end
 
   def self.generate_key(source)
-    if source.is_a? Symbol
-      ":#{source}"
-    else
-      source = source.strip
-      (source =~ /^:[a-z][a-z0-9_]*$/) ? source : Digest::MD5.hexdigest(source)
-    end
+    return ":#{source}" if source.is_a? Symbol
+    source = source.strip
+    (source =~ /^:[a-z][a-z0-9_]*$/) ? source : Digest::MD5.hexdigest(source)
   end
 
   def self.file_with_translations_exists?(locale)
