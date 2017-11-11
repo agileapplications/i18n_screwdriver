@@ -6,6 +6,12 @@ require "i18n_screwdriver/rails"
 module I18nScrewdriver
   Error = Class.new(StandardError)
 
+  class << self
+    attr_accessor :excluded_paths
+  end
+
+  self.excluded_paths = [%r{^tmp/}, %r{^node_modules/}]
+
   def self.filename_for_locale(locale)
     File.join("config", "locales", "application.#{locale}.yml")
   end
@@ -93,12 +99,18 @@ module I18nScrewdriver
     end
   end
 
+  def self.excluded_path?(path)
+    excluded_paths.detect{ |excluded_path| path =~ excluded_path }
+  end
+
   def self.gather_translations
     texts = []
     symbols = []
 
     Dir.glob("**/*.{haml,erb,slim,rb}").each do |file|
       next unless File.file?(file)
+      next if excluded_path?(file)
+      puts "Scanning #{file}..."
       input = File.read(file)
       texts.concat(grab_texts_to_be_translated(input))
       symbols.concat(grab_symbols_to_be_translated(input))
@@ -106,6 +118,8 @@ module I18nScrewdriver
 
     Dir.glob("**/*.{js,coffee,hamlc,ejs,erb}").each do |file|
       next unless File.file?(file)
+      next if excluded_path?(file)
+      puts "Scanning #{file}..."
       input = File.read(file)
       texts.concat(grab_js_texts_to_be_translated(input))
     end
