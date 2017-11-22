@@ -10,7 +10,7 @@ module I18nScrewdriver
     attr_accessor :excluded_paths
   end
 
-  self.excluded_paths = [%r{^tmp/}, %r{^node_modules/}]
+  self.excluded_paths = [%r{^tmp/}, %r{^node_modules/}, %r{/packs/}, %r{/packs-test}]
 
   def self.filename_for_locale(locale)
     File.join("config", "locales", "application.#{locale}.yml")
