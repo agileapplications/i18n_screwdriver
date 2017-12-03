@@ -116,7 +116,7 @@ module I18nScrewdriver
       symbols.concat(grab_symbols_to_be_translated(input))
     end
 
-    Dir.glob("**/*.{js,coffee,hamlc,ejs,erb}").each do |file|
+    Dir.glob("**/*.{js,jsx,coffee,hamlc,ejs,erb}").each do |file|
       next unless File.file?(file)
       next if excluded_path?(file)
       puts "Scanning #{file}..."
