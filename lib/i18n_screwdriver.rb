@@ -7,10 +7,11 @@ module I18nScrewdriver
   Error = Class.new(StandardError)
 
   class << self
-    attr_accessor :excluded_paths
+    attr_accessor :excluded_paths, :included_gems
   end
 
   self.excluded_paths = [%r{^tmp/}, %r{^node_modules/}, %r{/packs/}, %r{/packs-test}]
+  self.included_gems = []
 
   def self.filename_for_locale(locale)
     File.join("config", "locales", "application.#{locale}.yml")
@@ -103,11 +104,8 @@ module I18nScrewdriver
     excluded_paths.detect{ |excluded_path| path =~ excluded_path }
   end
 
-  def self.gather_translations
-    texts = []
-    symbols = []
-
-    Dir.glob("**/*.{haml,erb,slim,rb}").each do |file|
+  def self.gather_ruby_translations(path, texts, symbols)
+    Dir.glob("#{path}/**/*.{haml,erb,slim,rb}").each do |file|
       next unless File.file?(file)
       next if excluded_path?(file)
       puts "Scanning #{file}..."
@@ -115,13 +113,32 @@ module I18nScrewdriver
       texts.concat(grab_texts_to_be_translated(input))
       symbols.concat(grab_symbols_to_be_translated(input))
     end
+  end
 
-    Dir.glob("**/*.{js,jsx,coffee,hamlc,ejs,erb}").each do |file|
+  def self.gather_js_translations(path, texts)
+    Dir.glob("#{path}/**/*.{js,jsx,coffee,hamlc,ejs,erb}").each do |file|
       next unless File.file?(file)
       next if excluded_path?(file)
       puts "Scanning #{file}..."
       input = File.read(file)
       texts.concat(grab_js_texts_to_be_translated(input))
+    end
+  end
+
+  def self.gather_translations
+    texts = []
+    symbols = []
+
+    gather_ruby_translations(".", texts, symbols)
+    gather_js_translations(".", texts)
+
+    included_gems.each do |name|
+      spec = Gem.loaded_specs[name]
+      next puts "WARNING: gem #{name} not loaded, so it cannot be scanned for translations!" unless spec
+      spec.full_require_paths.each do |path|
+        gather_ruby_translations(path, texts, symbols)
+        gather_js_translations(path, texts)
+      end
     end
 
     translations = Hash[texts.uniq.map{ |text| [generate_key(text), extract_text(text)] }]
