@@ -1,3 +1,3 @@
 module I18nScrewdriver
-  VERSION = "9.7"
+  VERSION = "10.0.0"
 end
