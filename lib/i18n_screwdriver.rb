@@ -10,7 +10,7 @@ module I18nScrewdriver
     attr_accessor :excluded_paths, :included_gems
   end
 
-  self.excluded_paths = [%r{^tmp/}, %r{^node_modules/}, %r{/packs/}, %r{/packs-test}]
+  self.excluded_paths = [%r{/tmp/}, %r{/node_modules/}, %r{/packs/}, %r{/packs-test}]
   self.included_gems = []
 
   def self.filename_for_locale(locale)
