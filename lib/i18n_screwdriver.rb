@@ -135,10 +135,8 @@ module I18nScrewdriver
     included_gems.each do |name|
       spec = Gem.loaded_specs[name]
       next puts "WARNING: gem #{name} not loaded, so it cannot be scanned for translations!" unless spec
-      spec.full_require_paths.each do |path|
-        gather_ruby_translations(path, texts, symbols)
-        gather_js_translations(path, texts)
-      end
+      gather_ruby_translations(spec.full_gem_path, texts, symbols)
+      gather_js_translations(spec.full_gem_path, texts)
     end
 
     translations = Hash[texts.uniq.map{ |text| [generate_key(text), extract_text(text)] }]
