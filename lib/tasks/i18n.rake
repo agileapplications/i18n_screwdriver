@@ -1,6 +1,6 @@
 namespace :i18n do
   desc 'Find all translations in views, helpers and controllers'
-  task :update do
+  task update: :environment do
     require "i18n_screwdriver"
     require "yaml"
 
@@ -11,7 +11,7 @@ namespace :i18n do
   end
 
   desc 'Translate all not yet translated texts for a given locale'
-  task :translate do
+  task translate: :environment do
     require "i18n_screwdriver"
     require "yaml"
 
