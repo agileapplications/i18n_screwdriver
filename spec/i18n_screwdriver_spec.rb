@@ -37,4 +37,14 @@ describe I18nScrewdriver do
       expect(I18nScrewdriver.translate(:intro_text)).to eq("un lungo testo introduttivo")
     end
   end
+
+  describe "grab_js_texts_to_be_translated with screw based method" do
+    it "properly parses the passed string" do
+      expect(I18nScrewdriver.grab_js_texts_to_be_translated(%|=I18n.screwBasedMethod("test!")|)).to eq(["test!"])
+      expect(I18nScrewdriver.grab_js_texts_to_be_translated(%|=I18n.screwBasedMethod( "test!")|)).to eq(["test!"])
+      expect(I18nScrewdriver.grab_js_texts_to_be_translated(%|=I18n.screwBasedMethod("Hi %{name}!", name: "gucki")|)).to eq(["Hi %{name}!"])
+      expect(I18nScrewdriver.grab_js_texts_to_be_translated(%|=I18n.screwBasedMethod "test!"|)).to eq(["test!"])
+      expect(I18nScrewdriver.grab_js_texts_to_be_translated(%|=I18n.screwBasedMethod "Hi %{name}!", name: "gucki"|)).to eq(["Hi %{name}!"])
+    end
+  end
 end
