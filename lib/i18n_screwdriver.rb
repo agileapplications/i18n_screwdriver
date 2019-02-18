@@ -55,9 +55,9 @@ module I18nScrewdriver
 
   def self.grab_js_texts_to_be_translated(string)
     [].tap do |texts|
-      texts.concat(string.scan(/\bI18n\.screw\(?\s*(?<!\\)"(.*?)(?<!\\)"/).map{ |v| unescape_string(v[0]) })
-      texts.concat(string.scan(/\bI18n\.screw\(?\s*(?<!\\)'(.*?)(?<!\\)'/).map{ |v| unescape_string(v[0]) })
-      texts.concat(string.scan(/\bI18n\.screw\(?\s*(?<!\\)`(.*?)(?<!\\)`/).map{ |v| unescape_string(v[0]) })
+      texts.concat(string.scan(/\bI18n\.screw\w*\(?\s*(?<!\\)"(.*?)(?<!\\)"/).map{ |v| unescape_string(v[0]) })
+      texts.concat(string.scan(/\bI18n\.screw\w*\(?\s*(?<!\\)'(.*?)(?<!\\)'/).map{ |v| unescape_string(v[0]) })
+      texts.concat(string.scan(/\bI18n\.screw\w*\(?\s*(?<!\\)`(.*?)(?<!\\)`/).map{ |v| unescape_string(v[0]) })
     end
   end
 
