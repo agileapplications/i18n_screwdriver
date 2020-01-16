@@ -116,7 +116,7 @@ module I18nScrewdriver
   end
 
   def self.gather_js_translations(path, texts)
-    Dir.glob("#{path}/**/*.{js,jsx,coffee,hamlc,ejs,erb}").each do |file|
+    Dir.glob("#{path}/**/*.{js,jsx,ts,tsx,coffee,hamlc,ejs,erb}").each do |file|
       next unless File.file?(file)
       next if excluded_path?(file)
       puts "Scanning #{file}..."
