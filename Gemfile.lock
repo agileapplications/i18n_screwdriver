@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    i18n_screwdriver (10.3.0)
+    i18n_screwdriver (10.6.0)
       rails (>= 3.0.0)
 
 GEM
