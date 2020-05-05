@@ -11,7 +11,7 @@
   "scripts": {
     "build": "rimraf dist && microbundle --external i18n-js --globals i18n-js=I18n",
     "dev": "microbundle watch --external i18n-js --globals i18n-js=I18n",
-    "publish": "npm publish --access public",
+    "npm": "yarn publish --access public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
