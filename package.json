@@ -9,8 +9,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "rimraf dist && microbundle --external i18n-js --globals i18n-js=I18n",
-    "dev": "microbundle watch --external i18n-js --globals i18n-js=I18n",
+    "build": "rimraf dist && microbundle",
+    "dev": "microbundle watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,7 +28,6 @@
   "homepage": "https://github.com/agileapplications/i18n_screwdriver#readme",
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.9.0",
-    "i18n-js": "^3.5.1",
     "microbundle": "^0.12.0-next.9",
     "rimraf": "^3.0.2"
   },
