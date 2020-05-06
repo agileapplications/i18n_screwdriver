@@ -53,6 +53,24 @@ It gets recreated everytime you run the tasks - edit those translations in your 
 
   TRANSLATE=en rake i18n:translate
 
+=== Node Package
+
+Requires {i18n-js}[https://www.npmjs.com/package/i18n-js] as a peer dependency.
+
+First install the npm-package
+
+  yarn add i18n-screwdriver
+
+And then configure I18n with the i18n-screwdriver plugin
+  
+  import I18n from "i18n-js"
+  import configure from "i18n-screwdriver"
+
+  configure(I18n)
+
+  I18n.screw("Your translations")
+
+
 == Test Helpers
 
 In your tests (functionals and integration) you can use the same translation helper
