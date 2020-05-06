@@ -1,5 +1,5 @@
 {
-  "name": "@hundertzehn/i18n-screwdriver",
+  "name": "i18n-screwdriver",
   "version": "11.0.0",
   "description": "Node package for the i18n_screwdriver gem",
   "source": "package/src/index.js",
@@ -11,7 +11,6 @@
   "scripts": {
     "build": "rimraf dist && microbundle --external i18n-js --globals i18n-js=I18n",
     "dev": "microbundle watch --external i18n-js --globals i18n-js=I18n",
-    "npm": "yarn publish --access public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
