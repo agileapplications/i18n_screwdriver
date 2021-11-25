@@ -100,4 +100,4 @@ In your tests (functionals and integration) you can use the same translation hel
 
 == Copyright
 
-Copyright (c) 2010 - 2013 Tobias Miesel & {Corin Langosch}[http://www.corinlangosch.com]. Released unter the MIT license.
+Copyright (c) 2010 - 2021 Tobias Miesel & {Corin Langosch}[http://www.corinlangosch.com]. Released unter the MIT license.
