@@ -178,7 +178,7 @@ module I18nScrewdriver
   def self.translate(string, **options)
     I18n.translate!(generate_key(string), **options)
   rescue I18n::MissingTranslationData
-    I18n.translate(string, options)
+    I18n.translate(string, **options)
   end
 
   def self.extract_text(string)
