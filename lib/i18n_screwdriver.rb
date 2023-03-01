@@ -24,7 +24,7 @@ module I18nScrewdriver
   end
 
   def self.file_with_translations_exists?(locale)
-    File.exists?(filename_for_locale(locale))
+    File.exist?(filename_for_locale(locale))
   end
 
   def self.load_translations(locale)
