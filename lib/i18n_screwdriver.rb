@@ -24,12 +24,12 @@ module I18nScrewdriver
   end
 
   def self.file_with_translations_exists?(locale)
-    File.exists?(filename_for_locale(locale))
+    File.exist?(filename_for_locale(locale))
   end
 
   def self.load_translations(locale)
     path = filename_for_locale(locale)
-    raise Error, "File #{path} not found!" unless File.exists?(path)
+    raise Error, "File #{path} not found!" unless File.exist?(path)
     sanitize_hash(YAML.load_file(path)[locale])
   end
 
