@@ -9,7 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "rimraf dist && microbundle",
+    "build": "rimraf dist && microbundle && cp package/src/index.d.ts dist/",
     "dev": "microbundle watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
