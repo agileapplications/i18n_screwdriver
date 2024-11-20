@@ -139,7 +139,7 @@ module I18nScrewdriver
       gather_js_translations(spec.full_gem_path, texts)
     end
 
-    translations = Hash[texts.uniq.map{ |text| [generate_key(text), extract_text(text)] }]
+    translations = Hash[texts.uniq.map{ |text| [generate_key(text), text] }]
     translations.merge(Hash[symbols.uniq.map{ |symbol| [generate_key(symbol), ""] }])
   end
 
@@ -176,13 +176,8 @@ module I18nScrewdriver
   end
 
   def self.translate(string, **options)
-    I18n.translate!(generate_key(string), **options)
+    I18n.translate!(generate_key(string), **options).split("|").last
   rescue I18n::MissingTranslationData
     I18n.translate(string, **options)
-  end
-
-  def self.extract_text(string)
-    namespace, text = string.split("|", 2)
-    text ? text : namespace
   end
 end

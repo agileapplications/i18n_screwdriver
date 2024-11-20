@@ -1,2 +1,2 @@
-import n from"md5";export default function(r){r.screw=function(t,o){var i,e=n(t),u=null===(i=r.translations[r.locale])||void 0===i?void 0:i[e];return void 0===u&&(u=function(n,r,t){return"translation missing: "+n.locale+"."+t}(r,0,t)),function(n,r){return n.replace(/%{([^{}]*)}/g,function(n,t){return r[t]})}(u,o)}}
+import n from"md5";export default function(r){r.screw=function(t,l){var o,i,u=n(t),e=null===(o=r.translations[r.locale])||void 0===o?void 0:o[u];void 0===e&&(e=function(n,r,t){return"translation missing: "+n.locale+"."+t}(r,0,t));var a=e.split("|"),c=a[1];return function(n,r){return n.replace(/%{([^{}]*)}/g,function(n,t){return r[t]})}(null!=(i=null!=c?c:a[0])?i:"",l)}}
 //# sourceMappingURL=index.module.js.map

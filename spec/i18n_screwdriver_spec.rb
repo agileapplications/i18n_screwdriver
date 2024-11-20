@@ -20,6 +20,10 @@ describe I18nScrewdriver do
       expect(I18nScrewdriver.grab_js_texts_to_be_translated(%|=I18n.screw(`Hi ${name}!`)"|)).to eq(["Hi ${name}!"])
       expect(I18nScrewdriver.grab_js_texts_to_be_translated(%|=I18n.screw(`Hi %{name}!`, name: "gucki")|)).to eq(["Hi %{name}!"])
     end
+
+    it "properly parses the passed string with context" do
+      expect(I18nScrewdriver.grab_js_texts_to_be_translated(%|=I18n.screw("context\|test!")|)).to eq(["context\|test!"])
+    end
   end
 
   describe "translates (oh really?)" do
@@ -36,6 +40,12 @@ describe I18nScrewdriver do
       I18n.locale = :it
       expect(I18nScrewdriver.translate(:intro_text)).to eq("un lungo testo introduttivo")
     end
+
+    it "translate a string with context" do
+      expect(I18nScrewdriver.translate("unit|day")).to eq("day")
+      I18n.locale = :it
+      expect(I18nScrewdriver.translate("unit|day")).to eq("giorno")
+    end
   end
 
   describe "grab_js_texts_to_be_translated with screw based method" do
@@ -45,6 +55,10 @@ describe I18nScrewdriver do
       expect(I18nScrewdriver.grab_js_texts_to_be_translated(%|=I18n.screwBasedMethod("Hi %{name}!", name: "gucki")|)).to eq(["Hi %{name}!"])
       expect(I18nScrewdriver.grab_js_texts_to_be_translated(%|=I18n.screwBasedMethod "test!"|)).to eq(["test!"])
       expect(I18nScrewdriver.grab_js_texts_to_be_translated(%|=I18n.screwBasedMethod "Hi %{name}!", name: "gucki"|)).to eq(["Hi %{name}!"])
+    end
+
+    it "properly parses the passed string" do
+      expect(I18nScrewdriver.grab_js_texts_to_be_translated(%|=I18n.screwBasedMethod("context\|test!")|)).to eq(["context|test!"])
     end
   end
 end

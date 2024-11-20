@@ -1,6 +1,6 @@
 {
   "name": "i18n-screwdriver",
-  "version": "11.0.1",
+  "version": "12.0.0",
   "description": "Node package for the i18n_screwdriver gem",
   "source": "package/src/index.js",
   "main": "dist/index.js",

@@ -14,6 +14,8 @@ export default function configure(I18n) {
     if (typeof translation === "undefined") {
       translation = onMissingTranslation(I18n, hash, message);
     }
-    return interpolate(translation, data);
+
+    const [context, phrase] = translation.split("|");
+    return interpolate(phrase ?? context ?? "", data);
   };
 }
