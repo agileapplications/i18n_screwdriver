@@ -9,5 +9,7 @@ I18n.screw = function(message, data) {
   if (translation == null) {
     translation = I18n.onMissingTranslation(md5, message);
   }
-  return interpolate(translation, data);
+
+  const [context, phrase] = translation.split("|")
+  return interpolate(phrase ?? context ?? "", data);
 };
