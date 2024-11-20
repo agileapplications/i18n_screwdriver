@@ -3,6 +3,7 @@
 Gemfile.lock
 pkg/*
 node_modules/
+vendor/bundle
 
 .idea
 
