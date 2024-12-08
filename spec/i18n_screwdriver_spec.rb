@@ -26,6 +26,21 @@ describe I18nScrewdriver do
     end
   end
 
+  describe "grab_texts_to_be_translated" do
+    it "properly parses the passed string" do
+      expect(I18nScrewdriver.grab_texts_to_be_translated(%|=_("test!")|)).to eq(["test!"])
+      expect(I18nScrewdriver.grab_texts_to_be_translated(%|=_( "test!")|)).to eq(["test!"])
+      expect(I18nScrewdriver.grab_texts_to_be_translated(%|=_(\t"test!")|)).to eq(["test!"])
+      expect(I18nScrewdriver.grab_texts_to_be_translated(%|=_(\n"test!")|)).to eq(["test!"])
+      expect(I18nScrewdriver.grab_texts_to_be_translated(%|=_(  \n   "test!")|)).to eq(["test!"])
+      expect(I18nScrewdriver.grab_texts_to_be_translated(%|=_("Hi %{name}!", name: "gucki")|)).to eq(["Hi %{name}!"])
+
+      expect(I18nScrewdriver.grab_texts_to_be_translated(%|=_('test!')|)).to eq(["test!"])
+      expect(I18nScrewdriver.grab_texts_to_be_translated(%|=_( 'test!')|)).to eq(["test!"])
+      expect(I18nScrewdriver.grab_texts_to_be_translated(%|=_('Hi %{name}!', name: "gucki")|)).to eq(["Hi %{name}!"])
+    end
+  end
+
   describe "translates (oh really?)" do
     before do
       I18n.locale = :en
