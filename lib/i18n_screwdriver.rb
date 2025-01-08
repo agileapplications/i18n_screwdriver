@@ -176,7 +176,12 @@ module I18nScrewdriver
   end
 
   def self.translate(string, **options)
-    escaped_options = options.transform_values { |v| v.gsub("|", "<PIPE/>") }
+    escaped_options = options.transform_values do |value|
+      next value unless value.is_a?(String)
+
+      value.gsub("|", "<PIPE/>")
+    end
+
     I18n.translate!(generate_key(string), **escaped_options).split("|").last.gsub("<PIPE/>", "|")
   rescue I18n::MissingTranslationData
     I18n.translate(string, **options)
